@@ -16,12 +16,12 @@
   <div class="box">
     <h1>Welche Räume sind gerade frei?</h1>
     <div class="timeDisplay" id="timeNow"></div> <br>
-    <label><input type="checkbox" id="pianoOnly"> Nur Räume mit Flügel anzeigen</label>
     <div id="freeRooms">Lade...</div>
   </div>
 
 
 <script>
+
 // --- DATA: FREE ROOMS (only Monday for now — extendable) ---
 // Structure: "Day -> TimeRange -> FreeRooms"
 const schedule = {
@@ -234,35 +234,7 @@ days.forEach(d => {
 });
 
 // --- Manuelle Abfrage ---
-/* function manualCheck() {
-  const day = daySelect.value;
-  const time = document.getElementById("timeSelect").value; // HH:MM
 
-  if (!time) {
-    document.getElementById("manualResult").textContent = "Bitte Uhrzeit wählen";
-    return;
-  }
-
-  const minutes = toMinutes(time);
-
-  const entries = schedule[day];
-  if (!entries) {
-    document.getElementById("manualResult").textContent = "Keine Daten für diesen Tag";
-    return;
-  }
-
-  for (const range in entries) {
-    const [start, end] = range.split("-");
-    if (minutes >= toMinutes(start) && minutes < toMinutes(end)) {
-      const free = entries[range];
-      document.getElementById("manualResult").textContent =
-        free ? `Zu dieser Zeit frei: ${free}` : "Keine Räume frei";
-      return;
-    }
-  }
-
-  document.getElementById("manualResult").textContent = "Außerhalb der Öffnungszeiten";
-} */
 function manualCheck() {
   const day = daySelect.value;
   const time = document.getElementById("timeSelect").value; // HH:MM
@@ -330,53 +302,7 @@ days.forEach(d => {
 });
 
 // --- Funktion: Räume im Zeitfenster prüfen ---
-/* function checkTimeWindow() {
-  const day = daySelectWindow.value;
-  const startTime = document.getElementById("startTime").value;
-  const endTime = document.getElementById("endTime").value;
 
-  if (!startTime || !endTime) {
-    document.getElementById("windowResult").textContent = "Bitte Start- und Endzeit wählen";
-    return;
-  }
-
-  const startMinutes = toMinutes(startTime);
-  const endMinutes = toMinutes(endTime);
-
-  if (startMinutes >= endMinutes) {
-    document.getElementById("windowResult").textContent = "Endzeit muss nach Startzeit liegen";
-    return;
-  }
-
-  const entries = schedule[day];
-  if (!entries) {
-    document.getElementById("windowResult").textContent = "Keine Daten für diesen Tag";
-    return;
-  }
-
-  // Schnittmenge der freien Räume über alle Slots im gewählten Zeitraum
- let freeRoomsSet = null;
-
-  for (const range in entries) {
-    const [slotStart, slotEnd] = range.split("-");
-    const slotStartMin = toMinutes(slotStart);
-    const slotEndMin = toMinutes(slotEnd);
-
-    // Prüfen, ob dieser Slot innerhalb des gewählten Zeitfensters liegt
-    if (slotEndMin <= startMinutes || slotStartMin >= endMinutes) continue;
-
-    const slotRooms = entries[range] ? entries[range].split(", ").map(r => r.trim()) : [];
-    
-    if (freeRoomsSet === null) {
-      freeRoomsSet = new Set(slotRooms);
-    } else {
-      freeRoomsSet = new Set(slotRooms.filter(r => freeRoomsSet.has(r)));
-    }
-  }
-
-  const result = freeRoomsSet && freeRoomsSet.size > 0 ? Array.from(freeRoomsSet).join(", ") : "Keine Räume komplett frei";
-  document.getElementById("windowResult").textContent = `Im gewählten Zeitraum frei: ${result}`;
-} */
 
 function checkTimeWindow() {
   const day = daySelectWindow.value;
